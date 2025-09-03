@@ -204,11 +204,9 @@ class Jogo:
                 self.dying = 0
 
         if master == -2:
-            if ((pyxel.btn(pyxel.KEY_A)==True or pyxel.btn(pyxel.KEY_LEFT)==True)) and (self.selection == -2 or self.selection == -3):
-                time.sleep(0.2)
+            if ((pyxel.btnr(pyxel.KEY_A)==True or pyxel.btnr(pyxel.KEY_LEFT)==True)) and (self.selection == -2 or self.selection == -3):
                 self.selection += 1
-            elif (pyxel.btn(pyxel.KEY_D)==True or pyxel.btn(pyxel.KEY_RIGHT)==True) and (self.selection == -1 or self.selection == -2):
-                time.sleep(0.2)
+            elif (pyxel.btnr(pyxel.KEY_D)==True or pyxel.btnr(pyxel.KEY_RIGHT)==True) and (self.selection == -1 or self.selection == -2):
                 self.selection -= 1
 
             if self.selection == -1 and (pyxel.btn(pyxel.KEY_SPACE)==True or pyxel.btn(pyxel.KEY_RETURN)==True):
