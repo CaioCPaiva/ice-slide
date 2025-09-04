@@ -324,7 +324,7 @@ class maker:
         pyxel.rect(300, 250, 60, 20,9) #Resetar level
         pyxel.text(305, 258, "Reset Level", 7)
         pyxel.rect(420, 250, 60, 20,2) #Exportar level
-        pyxel.text(425, 258, "Export Level", 7)
+        pyxel.text(430, 258, "Save Level", 7)
 
         pyxel.text(440,53,"Difficulty",1)
         pyxel.rectb(440,60,40,20,1)
