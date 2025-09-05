@@ -9,6 +9,7 @@ initial_x = 0
 initial_y = 0
 master = -999
 master_memory = 1
+break_thick = True
 fps = 13
 wave_speed = 13
 counter = 0
@@ -71,8 +72,10 @@ def definir_mundo(master):
                 temp_array.append(temp_row)
             world.append(temp_array)
 
-        initial_x = content[0][0]
+        initial_x = content[0][0]+2
         initial_y = content[0][1]
+
+        world[initial_y][initial_x-2][0]=7
 
 
 ##GUIA MASTER:
@@ -91,12 +94,13 @@ def definir_mundo(master):
 definir_mundo(1)
 
 def trilha(x, y):
+    global break_thick
     for j in range(16):
         for i in range(16):
             if ((world[j][i][0]) == 0):
                 world[j][i][0] = -1
 
-            if world[j][i][1] >0 and world[j][i][1]<3 and world[j][i][0]!= 2:
+            if world[j][i][1] >0 and world[j][i][1]<3 and world[j][i][0]!= 2 and world[j][i][0]!=7:
                 world[j][i][0] = 0
                 world[j][i][1] -= 1
 
@@ -105,7 +109,7 @@ def trilha(x, y):
     
     if world[y][x][0] > 0:
         world[y][x][1] = 3
-    if world[y][x][0] == 2:
+    if world[y][x][0] == 2 and break_thick == True:
         world[y][x][0] = 1
         world[y][x][1] = 0
 
@@ -122,7 +126,7 @@ class Jogo:
         pyxel.run(self.update, self.draw)
 
     def update(self):
-        global world, master_memory, master, initial_x, initial_y, last, difficulty
+        global world, master_memory, master, initial_x, initial_y, last, difficulty, break_thick
 
         if master == -998:
             time.sleep(0.3)
@@ -249,17 +253,31 @@ class Jogo:
         if (pyxel.btn(pyxel.KEY_W)==True or pyxel.btn(pyxel.KEY_UP)==True) and self.move == True and master > 0:
             self.direction = "north"
             self.move = False
+            break_thick = True
+            if world[self.y][self.x-2][0] == 2:
+                world[self.y][self.x-2][0] = 1
+                world[self.y][self.x-2][1] = 0
         elif (pyxel.btn(pyxel.KEY_S)==True or pyxel.btn(pyxel.KEY_DOWN)==True) and self.move == True and master > 0:
             self.direction = "south"
             self.move = False
+            break_thick = True
+            if world[self.y][self.x-2][0] == 2:
+                world[self.y][self.x-2][0] = 1
+                world[self.y][self.x-2][1] = 0
         elif (pyxel.btn(pyxel.KEY_A)==True or pyxel.btn(pyxel.KEY_LEFT)==True) and self.move == True and master > 0:
             self.direction = "west"
             self.move = False
+            break_thick = True
+            if world[self.y][self.x-2][0] == 2:
+                world[self.y][self.x-2][0] = 1
+                world[self.y][self.x-2][1] = 0
         elif (pyxel.btn(pyxel.KEY_D)==True or pyxel.btn(pyxel.KEY_RIGHT)==True) and self.move == True and master > 0:
             self.direction = "east"
             self.move = False
-
-        trilha(self.x-2, self.y)
+            break_thick = True
+            if world[self.y][self.x-2][0] == 2:
+                world[self.y][self.x-2][0] = 1
+                world[self.y][self.x-2][1] = 0
 
         if self.move == False and self.direction == "north" and master > 0 and self.dying ==0:
             if (world[self.y-1][self.x-2][0] == 5):
@@ -269,6 +287,8 @@ class Jogo:
                     self.selection = -2
                     self.dying = 1
                 self.y -= 1
+                if (world[self.y-1][self.x-2][0] == 5):
+                    break_thick = False
                 if self.y ==0:
                     self.selection = -2
                     self.dying = 4
@@ -281,6 +301,8 @@ class Jogo:
                     self.selection = -2
                     self.dying = 1
                 self.y += 1
+                if (world[self.y+1][self.x-2][0] == 5):
+                    break_thick = False
                 if self.y ==15:
                     self.selection = -2
                     self.dying = 4
@@ -293,6 +315,8 @@ class Jogo:
                     self.selection = -2
                     self.dying = 1
                 self.x -= 1
+                if (world[self.y][self.x-3][0] == 5):
+                    break_thick = False
                 if self.x ==2:
                     self.selection = -2
                     self.dying = 4
@@ -305,9 +329,13 @@ class Jogo:
                     self.selection = -2
                     self.dying = 1
                 self.x += 1
+                if (world[self.y][self.x-1][0] == 5):
+                    break_thick = False
                 if self.x ==17:
                     self.selection = -2
                     self.dying = 4
+
+        trilha(self.x-2, self.y)
 
         if (world[self.y][self.x-2][0] == -10) and difficulty==1:
             self.selection = -3 
@@ -318,12 +346,17 @@ class Jogo:
             master = -1000
         
         if self.x==initial_x and self.y==initial_y and difficulty==2:
+            self.direction = None
+            self.move = True
             x = 0
             for j in range(16):
                 for i in range(16):
                     if world[j][i][0]==1:
                         x+=1
             if x == 0:
+                self.selection = -3 
+                self.x = 0
+                self.y = 0
                 master = -2
 
     def draw(self):
@@ -374,6 +407,8 @@ class Jogo:
                             pyxel.blt((i+2)*16, j*16, 0, 48, 64, 16, 16)
                         elif world[j][i][2] == -5:
                             pyxel.blt((i+2)*16, j*16, 0, 64, 64, 16, 16)
+                    case 7:
+                        pyxel.blt((initial_x)*16, initial_y*16,0,16,32,16,16)
                     case -10:
                         pyxel.blt((i+2)*16, j*16, 0, 16, 0, 16, 16)
                         pyxel.blt((i+2)*16, j*16, 0, 48, 32, 16, 16,8)

@@ -40,7 +40,6 @@ world_array = [[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
 #gelo grosso = 2
 #água = -1
 #neve = 5
-print("Não alterne entre dificuldades se estiver em um nível ao qual não exista equivalência na outra dificuldade!")
 world_list = []
 class maker:
     def __init__(self):
@@ -137,6 +136,10 @@ class maker:
             self.selection = 0
         
         if (self.mouse_x>=440 and self.mouse_x<=480) and (self.mouse_y>=60 and self.mouse_y<=80) and pyxel.btnp(pyxel.MOUSE_BUTTON_LEFT)==True:
+            self.level = -1
+            world_array = copy.deepcopy(base_array)
+            self.initial_x = -10
+            self.initial_y = -10
             if self.difficulty ==1:
                 self.difficulty = 2
             else:
@@ -182,7 +185,7 @@ class maker:
                         else:
 
                             temp_list=[]
-                            world_list.append([self.initial_x+2,self.initial_y])
+                            world_list.append([self.initial_x,self.initial_y])
 
                             for y in range(16):
                                 for x in range(16):
@@ -214,7 +217,7 @@ class maker:
                             self.initial_y = -10
                     elif self.difficulty==2:
                         temp_list=[]
-                        world_list.append([self.initial_x+2,self.initial_y])
+                        world_list.append([self.initial_x,self.initial_y])
 
                         for y in range(16):
                             for x in range(16):
@@ -249,7 +252,7 @@ class maker:
                             linhas = f.readlines()
                         remade_world = []
                         temp_list = []
-                        remade_world.append([self.initial_x+2, self.initial_y])
+                        remade_world.append([self.initial_x, self.initial_y])
                         for y in range(16):
                                 for x in range(16):
                                     if world_array[y][x] != 1:
@@ -260,12 +263,13 @@ class maker:
                         linhas = [linha.rstrip("\n") for linha in linhas]
                         with open("map_lists.txt", "w") as f:
                             f.write("\n".join(linhas))
+
                     elif self.difficulty == 2:
                         with open("hard_map_lists.txt", "r") as f:
                             linhas = f.readlines()
                         remade_world = []
                         temp_list = []
-                        remade_world.append([self.initial_x+2, self.initial_y])
+                        remade_world.append([self.initial_x, self.initial_y])
                         for y in range(16):
                                 for x in range(16):
                                     if world_array[y][x] != 1:
@@ -279,7 +283,6 @@ class maker:
 
             else:
                 print("Defina um ponto inicial")
-            
         
     def draw(self):
         pyxel.cls(7)
@@ -303,11 +306,11 @@ class maker:
         elif self.difficulty == 2:
             pyxel.rect(462,62,16,16,8)
             pyxel.text(468,67, "D", 7)
-            pyxel.blt((self.initial_x*16)+20,(self.initial_y*16)+20,0,16,32,16,16)
+            pyxel.blt(((self.initial_x+2)*16)+20,(self.initial_y*16)+20,0,16,32,16,16)
         for i in range(17):
             pyxel.rect(20+(i*16),20,1,256,1)
             pyxel.rect(20,20+(i*16),256,1,1)
-        pyxel.rect((self.initial_x*16)+23, (self.initial_y*16)+23,11,11,3)
+        pyxel.rect(((self.initial_x+2)*16)+23, (self.initial_y*16)+23,11,11,3)
 
         pyxel.rectb(300,60,20,20,1) #gelo
         pyxel.blt(302,62,0,16,0,16,16)
