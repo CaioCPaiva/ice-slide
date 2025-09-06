@@ -40,6 +40,8 @@ world_array = [[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
 #gelo grosso = 2
 #água = -1
 #neve = 5
+#bloco inquebrável = 9
+
 world_list = []
 class maker:
     def __init__(self):
@@ -91,7 +93,7 @@ class maker:
                     temp_array.append(valor)
                 world_array.append(temp_array)
 
-            self.initial_x = (content[0][0]-2)
+            self.initial_x = (content[0][0])
             self.initial_y = content[0][1]
 
     def update(self):
@@ -114,8 +116,10 @@ class maker:
             self.selection = 4
         if (self.mouse_x>=400 and self.mouse_x<=420) and (self.mouse_y>=60 and self.mouse_y<=80) and pyxel.btnp(pyxel.MOUSE_BUTTON_LEFT)==True:
             self.selection = 5
-        if (self.mouse_x>=300 and self.mouse_x<=360) and (self.mouse_y>=90 and self.mouse_y<=110) and pyxel.btnp(pyxel.MOUSE_BUTTON_LEFT)==True:
+        if (self.mouse_x>=300 and self.mouse_x<=360) and (self.mouse_y>=110 and self.mouse_y<=130) and pyxel.btnp(pyxel.MOUSE_BUTTON_LEFT)==True:
             self.selection = 6
+        if (self.mouse_x>=300 and self.mouse_x<=320) and (self.mouse_y>=85 and self.mouse_y<=105) and pyxel.btnp(pyxel.MOUSE_BUTTON_LEFT)==True:
+            self.selection = 7
         
         if (self.mouse_x>=20 and self.mouse_x<=275) and (self.mouse_y>=20 and self.mouse_y<=275) and pyxel.btn(pyxel.MOUSE_BUTTON_LEFT)==True:
             match self.selection:
@@ -129,6 +133,8 @@ class maker:
                     world_array[(self.mouse_y-20)//16][(self.mouse_x-20)//16] = 5
                 case 5:
                     world_array[(self.mouse_y-20)//16][(self.mouse_x-20)//16] = -10
+                case 7:
+                    world_array[(self.mouse_y-20)//16][(self.mouse_x-20)//16] = 9
 
         if self.selection == 6 and (self.mouse_x>=20 and self.mouse_x<=275) and (self.mouse_y>=20 and self.mouse_y<=275) and pyxel.btnp(pyxel.MOUSE_BUTTON_LEFT)==True:
             self.initial_x = (self.mouse_x-20)//16
@@ -300,17 +306,19 @@ class maker:
                     case -10:
                         pyxel.blt(20+(i*16),20+(j*16),0,16,0,16,16)
                         pyxel.blt(20+(i*16),20+(j*16),0,48,32,16,16, 8)
+                    case 9:
+                        pyxel.blt(20+(i*16),20+(j*16),0,144,16,16,16)
         if self.difficulty == 1:
             pyxel.rect(442,62,16,16,3)
             pyxel.text(448,67, "F", 7)
         elif self.difficulty == 2:
             pyxel.rect(462,62,16,16,8)
             pyxel.text(468,67, "D", 7)
-            pyxel.blt(((self.initial_x+2)*16)+20,(self.initial_y*16)+20,0,16,32,16,16)
+            pyxel.blt(((self.initial_x)*16)+20,(self.initial_y*16)+20,0,16,32,16,16)
         for i in range(17):
             pyxel.rect(20+(i*16),20,1,256,1)
             pyxel.rect(20,20+(i*16),256,1,1)
-        pyxel.rect(((self.initial_x+2)*16)+23, (self.initial_y*16)+23,11,11,3)
+        pyxel.rect(((self.initial_x)*16)+23, (self.initial_y*16)+23,11,11,3)
 
         pyxel.rectb(300,60,20,20,1) #gelo
         pyxel.blt(302,62,0,16,0,16,16)
@@ -322,8 +330,10 @@ class maker:
         pyxel.blt(377,62,0,0,64,16,16)
         pyxel.rectb(400,60,20,20,1) #final point
         pyxel.blt(402,62,0,48,32,16,16, 8)
-        pyxel.rect(300, 90, 60, 20,3) #setar posição inicial
-        pyxel.text(305, 98, "Set init pos", 7)
+        pyxel.rectb(300,85,20,20,1) #bloco inquebrável
+        pyxel.blt(302,87,0,144,16,16,16)
+        pyxel.rect(300, 110, 60, 20,3) #setar posição inicial
+        pyxel.text(305, 118, "Set init pos", 7)
         pyxel.rect(300, 250, 60, 20,9) #Resetar level
         pyxel.text(305, 258, "Reset Level", 7)
         pyxel.rect(420, 250, 60, 20,2) #Exportar level
@@ -332,7 +342,7 @@ class maker:
         pyxel.text(440,53,"Difficulty",1)
         pyxel.rectb(440,60,40,20,1)
         
-        pyxel.rectb(300, 20, 20,20,1)
+        pyxel.rectb(300, 20, 20,20,1) #seleção de levels
         pyxel.rectb(460, 20, 20,20,1)
         pyxel.rect(325, 20, 130,20,1)
         pyxel.tri(303, 30, 315,24,315,36,1)
@@ -355,8 +365,10 @@ class maker:
             case 5:
                 pyxel.rectb(400,60,20,20,8)
             case 6:
-                pyxel.rectb(299,89,62,22,8)
-                pyxel.rectb(300,90,60,20,8)
+                pyxel.rectb(299,109,62,22,8)
+                pyxel.rectb(300,110,60,20,8)
+            case 7:
+                pyxel.rectb(300,85,20,20,8)
         
         
 

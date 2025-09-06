@@ -100,7 +100,7 @@ def trilha(x, y):
             if ((world[j][i][0]) == 0):
                 world[j][i][0] = -1
 
-            if world[j][i][1] >0 and world[j][i][1]<3 and world[j][i][0]!= 2 and world[j][i][0]!=7:
+            if world[j][i][1] >0 and world[j][i][1]<3 and world[j][i][0]!= 2 and world[j][i][0]!=7 and world[j][i][0]!=9:
                 world[j][i][0] = 0
                 world[j][i][1] -= 1
 
@@ -135,13 +135,13 @@ class Jogo:
         if master == -1000:
             self.direction = None
             self.move = False
-            if (pyxel.btn(pyxel.KEY_A)==True or pyxel.btn(pyxel.KEY_LEFT)==True):
+            if (pyxel.btnp(pyxel.KEY_A)==True or pyxel.btnp(pyxel.KEY_LEFT)==True):
                 self.selection = -1
-            elif (pyxel.btn(pyxel.KEY_D)==True or pyxel.btn(pyxel.KEY_RIGHT)==True):
+            elif (pyxel.btnp(pyxel.KEY_D)==True or pyxel.btnp(pyxel.KEY_RIGHT)==True):
                 self.selection = -2
-            if self.selection == -1 and (pyxel.btn(pyxel.KEY_SPACE)==True or pyxel.btn(pyxel.KEY_RETURN)==True):
+            if self.selection == -1 and (pyxel.btnp(pyxel.KEY_SPACE)==True or pyxel.btnp(pyxel.KEY_RETURN)==True):
                 pyxel.quit()
-            elif self.selection == -2 and (pyxel.btn(pyxel.KEY_SPACE)==True or pyxel.btn(pyxel.KEY_RETURN)==True):
+            elif self.selection == -2 and (pyxel.btnp(pyxel.KEY_SPACE)==True or pyxel.btnp(pyxel.KEY_RETURN)==True):
                 self.move = False
                 self.direction = None
                 self.selection = 1 
@@ -152,25 +152,25 @@ class Jogo:
         if master == -999:
             self.direction = None
             self.move = False
-            if (self.selection ==1 or self.selection==2) and (pyxel.btn(pyxel.KEY_D)==True or pyxel.btn(pyxel.KEY_RIGHT)==True):
+            if (self.selection ==1 or self.selection==2) and (pyxel.btnp(pyxel.KEY_D)==True or pyxel.btnp(pyxel.KEY_RIGHT)==True):
                 self.selection = int(self.selection*10)
-            if (self.selection ==10 or self.selection==20) and (pyxel.btn(pyxel.KEY_A)==True or pyxel.btn(pyxel.KEY_LEFT)==True):
+            if (self.selection ==10 or self.selection==20) and (pyxel.btnp(pyxel.KEY_A)==True or pyxel.btnp(pyxel.KEY_LEFT)==True):
                 self.selection = int(self.selection/10)
-            if (self.selection ==2 or self.selection==20) and (pyxel.btn(pyxel.KEY_W)==True or pyxel.btn(pyxel.KEY_UP)==True):
+            if (self.selection ==2 or self.selection==20) and (pyxel.btnp(pyxel.KEY_W)==True or pyxel.btnp(pyxel.KEY_UP)==True):
                 self.selection = int(self.selection/2)
-            if (self.selection ==1 or self.selection==10) and (pyxel.btn(pyxel.KEY_S)==True or pyxel.btn(pyxel.KEY_DOWN)==True):
+            if (self.selection ==1 or self.selection==10) and (pyxel.btnp(pyxel.KEY_S)==True or pyxel.btnp(pyxel.KEY_DOWN)==True):
                 self.selection = int(self.selection*2)
             
-            if self.selection == 1 and (pyxel.btn(pyxel.KEY_SPACE)==True or pyxel.btn(pyxel.KEY_RETURN)==True):
+            if self.selection == 1 and (pyxel.btnp(pyxel.KEY_SPACE)==True or pyxel.btnp(pyxel.KEY_RETURN)==True):
                 self.move=True
                 difficulty = 1
                 master = master_memory
                 definir_mundo(master)
                 self.x = initial_x
                 self.y = initial_y
-            elif self.selection == 2 and (pyxel.btn(pyxel.KEY_SPACE)==True or pyxel.btn(pyxel.KEY_RETURN)==True):
+            elif self.selection == 2 and (pyxel.btnp(pyxel.KEY_SPACE)==True or pyxel.btnp(pyxel.KEY_RETURN)==True):
                 pyxel.quit()
-            elif self.selection == 10 and (pyxel.btn(pyxel.KEY_SPACE)==True or pyxel.btn(pyxel.KEY_RETURN)==True):
+            elif self.selection == 10 and (pyxel.btnp(pyxel.KEY_SPACE)==True or pyxel.btnp(pyxel.KEY_RETURN)==True):
                 self.move=True
                 difficulty = 2
                 master = master_memory
@@ -178,26 +178,26 @@ class Jogo:
                 self.x = initial_x
                 self.y = initial_y
 
-        if pyxel.btn(pyxel.KEY_R)==True and self.move==True and master > 0:
+        if pyxel.btnp(pyxel.KEY_R)==True and self.move==True and master > 0:
             master = master_memory
             definir_mundo(master) 
             self.x=initial_x
             self.y=initial_y
 
         if master == -1:
-            if (pyxel.btn(pyxel.KEY_A)==True or pyxel.btn(pyxel.KEY_LEFT)==True):
+            if (pyxel.btnp(pyxel.KEY_A)==True or pyxel.btnp(pyxel.KEY_LEFT)==True):
                 self.selection = -1
-            elif (pyxel.btn(pyxel.KEY_D)==True or pyxel.btn(pyxel.KEY_RIGHT)==True):
+            elif (pyxel.btnp(pyxel.KEY_D)==True or pyxel.btnp(pyxel.KEY_RIGHT)==True):
                 self.selection = -2
 
-            if self.selection == -1 and (pyxel.btn(pyxel.KEY_SPACE)==True or pyxel.btn(pyxel.KEY_RETURN)==True):
+            if self.selection == -1 and (pyxel.btnp(pyxel.KEY_SPACE)==True or pyxel.btnp(pyxel.KEY_RETURN)==True):
                 self.move = False
                 self.direction = None
                 self.selection = 1 
                 master_memory = 1
                 self.dying = 0
                 master = -998
-            elif self.selection == -2 and (pyxel.btn(pyxel.KEY_SPACE)==True or pyxel.btn(pyxel.KEY_RETURN)==True):
+            elif self.selection == -2 and (pyxel.btnp(pyxel.KEY_SPACE)==True or pyxel.btnp(pyxel.KEY_RETURN)==True):
                 master = master_memory
                 definir_mundo(master)
                 self.selection = -2
@@ -208,12 +208,12 @@ class Jogo:
                 self.dying = 0
 
         if master == -2:
-            if ((pyxel.btnr(pyxel.KEY_A)==True or pyxel.btnr(pyxel.KEY_LEFT)==True)) and (self.selection == -2 or self.selection == -3):
+            if ((pyxel.btnp(pyxel.KEY_A)==True or pyxel.btnp(pyxel.KEY_LEFT)==True)) and (self.selection == -2 or self.selection == -3):
                 self.selection += 1
-            elif (pyxel.btnr(pyxel.KEY_D)==True or pyxel.btnr(pyxel.KEY_RIGHT)==True) and (self.selection == -1 or self.selection == -2):
+            elif (pyxel.btnp(pyxel.KEY_D)==True or pyxel.btnp(pyxel.KEY_RIGHT)==True) and (self.selection == -1 or self.selection == -2):
                 self.selection -= 1
 
-            if self.selection == -1 and (pyxel.btn(pyxel.KEY_SPACE)==True or pyxel.btn(pyxel.KEY_RETURN)==True):
+            if self.selection == -1 and (pyxel.btnp(pyxel.KEY_SPACE)==True or pyxel.btnp(pyxel.KEY_RETURN)==True):
                 self.move = False
                 self.direction = None
                 self.selection = 1 
@@ -221,7 +221,7 @@ class Jogo:
                 self.dying = 0
                 master = -998
 
-            elif self.selection == -2 and (pyxel.btn(pyxel.KEY_SPACE)==True or pyxel.btn(pyxel.KEY_RETURN)==True):
+            elif self.selection == -2 and (pyxel.btnp(pyxel.KEY_SPACE)==True or pyxel.btnp(pyxel.KEY_RETURN)==True):
                 master = master_memory
                 definir_mundo(master)
                 self.selection = -2
@@ -231,7 +231,7 @@ class Jogo:
                 self.move = True
                 self.dying = 0
 
-            elif self.selection == -3 and (pyxel.btn(pyxel.KEY_SPACE)==True or pyxel.btn(pyxel.KEY_RETURN)==True):
+            elif self.selection == -3 and (pyxel.btnp(pyxel.KEY_SPACE)==True or pyxel.btnp(pyxel.KEY_RETURN)==True):
                 master_memory += 1
                 master = master_memory
                 definir_mundo(master)
@@ -250,28 +250,28 @@ class Jogo:
             time.sleep(0.5)
             self.dying+= 1
 
-        if (pyxel.btn(pyxel.KEY_W)==True or pyxel.btn(pyxel.KEY_UP)==True) and self.move == True and master > 0:
+        if (pyxel.btn(pyxel.KEY_W)==True or pyxel.btnp(pyxel.KEY_UP)==True) and self.move == True and master > 0:
             self.direction = "north"
             self.move = False
             break_thick = True
             if world[self.y][self.x-2][0] == 2:
                 world[self.y][self.x-2][0] = 1
                 world[self.y][self.x-2][1] = 0
-        elif (pyxel.btn(pyxel.KEY_S)==True or pyxel.btn(pyxel.KEY_DOWN)==True) and self.move == True and master > 0:
+        elif (pyxel.btn(pyxel.KEY_S)==True or pyxel.btnp(pyxel.KEY_DOWN)==True) and self.move == True and master > 0:
             self.direction = "south"
             self.move = False
             break_thick = True
             if world[self.y][self.x-2][0] == 2:
                 world[self.y][self.x-2][0] = 1
                 world[self.y][self.x-2][1] = 0
-        elif (pyxel.btn(pyxel.KEY_A)==True or pyxel.btn(pyxel.KEY_LEFT)==True) and self.move == True and master > 0:
+        elif (pyxel.btn(pyxel.KEY_A)==True or pyxel.btnp(pyxel.KEY_LEFT)==True) and self.move == True and master > 0:
             self.direction = "west"
             self.move = False
             break_thick = True
             if world[self.y][self.x-2][0] == 2:
                 world[self.y][self.x-2][0] = 1
                 world[self.y][self.x-2][1] = 0
-        elif (pyxel.btn(pyxel.KEY_D)==True or pyxel.btn(pyxel.KEY_RIGHT)==True) and self.move == True and master > 0:
+        elif (pyxel.btn(pyxel.KEY_D)==True or pyxel.btnp(pyxel.KEY_RIGHT)==True) and self.move == True and master > 0:
             self.direction = "east"
             self.move = False
             break_thick = True
@@ -336,6 +336,10 @@ class Jogo:
                     self.dying = 4
 
         trilha(self.x-2, self.y)
+
+        if world[self.y][self.x-2][0] == 9:
+            self.move = True
+            self.direction = None
 
         if (world[self.y][self.x-2][0] == -10) and difficulty==1:
             self.selection = -3 
@@ -409,6 +413,8 @@ class Jogo:
                             pyxel.blt((i+2)*16, j*16, 0, 64, 64, 16, 16)
                     case 7:
                         pyxel.blt((initial_x)*16, initial_y*16,0,16,32,16,16)
+                    case 9 :
+                        pyxel.blt((i+2)*16,j*16,0,144,16,16,16)
                     case -10:
                         pyxel.blt((i+2)*16, j*16, 0, 16, 0, 16, 16)
                         pyxel.blt((i+2)*16, j*16, 0, 48, 32, 16, 16,8)
