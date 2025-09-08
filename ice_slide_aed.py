@@ -106,12 +106,18 @@ def trilha(x, y):
 
             if world[j][i][1] == 3:
              world[j][i][1] -=1
-    
-    if world[y][x][0] > 0:
+            
+            if world[j][i][0] == 2 and world[j][i][1]==1:
+                world[j][i][0] = 1
+                world[j][i][1] = 0
+
+            if world[j][i][0] == 2 and world[j][i][1]==2:
+                world[j][i][1] = 1
+
+    if world[y][x][0] ==1:
         world[y][x][1] = 3
     if world[y][x][0] == 2 and break_thick == True:
-        world[y][x][0] = 1
-        world[y][x][1] = 0
+        world[y][x][1] = 2
 
 class Jogo:
     def __init__(self):
@@ -255,29 +261,25 @@ class Jogo:
             self.move = False
             break_thick = True
             if world[self.y][self.x-2][0] == 2:
-                world[self.y][self.x-2][0] = 1
-                world[self.y][self.x-2][1] = 0
+                world[self.y][self.x-2][1] = 2
         elif (pyxel.btn(pyxel.KEY_S)==True or pyxel.btnp(pyxel.KEY_DOWN)==True) and self.move == True and master > 0:
             self.direction = "south"
             self.move = False
             break_thick = True
             if world[self.y][self.x-2][0] == 2:
-                world[self.y][self.x-2][0] = 1
-                world[self.y][self.x-2][1] = 0
+                world[self.y][self.x-2][1] = 2
         elif (pyxel.btn(pyxel.KEY_A)==True or pyxel.btnp(pyxel.KEY_LEFT)==True) and self.move == True and master > 0:
             self.direction = "west"
             self.move = False
             break_thick = True
             if world[self.y][self.x-2][0] == 2:
-                world[self.y][self.x-2][0] = 1
-                world[self.y][self.x-2][1] = 0
+                world[self.y][self.x-2][1] = 2
         elif (pyxel.btn(pyxel.KEY_D)==True or pyxel.btnp(pyxel.KEY_RIGHT)==True) and self.move == True and master > 0:
             self.direction = "east"
             self.move = False
             break_thick = True
             if world[self.y][self.x-2][0] == 2:
-                world[self.y][self.x-2][0] = 1
-                world[self.y][self.x-2][1] = 0
+                world[self.y][self.x-2][1] = 2
 
         if self.move == False and self.direction == "north" and master > 0 and self.dying ==0:
             if (world[self.y-1][self.x-2][0] == 5):
@@ -369,14 +371,22 @@ class Jogo:
         if counter % wave_speed == 0:
             wave = not wave
             counter = 0
-        if wave == True:
-            pyxel.bltm(0,0,0,0,0,32,256)
-            pyxel.bltm(288,0,0,64,0,32,256)
-        elif wave == False:
-            pyxel.bltm(0,0,0,32,0,32,256)
-            pyxel.bltm(288,0,0,96,0,32,256)
-        pyxel.bltm(16,0,0,128,0,16,256, 8)
-        pyxel.bltm(288,0,0,144,0,16,256, 8)
+        if difficulty == 1:
+            if wave == True:
+                pyxel.bltm(0,0,0,0,0,32,256)
+                pyxel.bltm(288,0,0,64,0,32,256)
+            elif wave == False:
+                pyxel.bltm(0,0,0,32,0,32,256)
+                pyxel.bltm(288,0,0,96,0,32,256)
+            pyxel.bltm(16,0,0,128,0,16,256, 8)
+            pyxel.bltm(288,0,0,144,0,16,256, 8)
+        elif difficulty == 2:
+            if wave == True:
+                pyxel.bltm(0,0,0,192,0,32,256)
+                pyxel.bltm(288,0,0,256,0,32,256)
+            elif wave == False:
+                pyxel.bltm(0,0,0,224,0,32,256)
+                pyxel.bltm(288,0,0,288,0,32,256)
         for j in range(16):
             for i in range(16):
                 match world[j][i][0]:
@@ -399,7 +409,10 @@ class Jogo:
                         elif wave == False:
                             pyxel.blt((i+2)*16, j*16, 0, 0, 48, 16, 16)
                     case 2:
-                        pyxel.blt((i+2)*16, j*16, 0, 0, 0, 16, 16)
+                        if world[j][i][1] != 0:
+                            pyxel.blt((i+2)*16, j*16, 0 ,144, 0, 16, 16)
+                        else:
+                            pyxel.blt((i+2)*16, j*16, 0, 0, 0, 16, 16)
                     case 5:
                         if world[j][i][2] == -1:
                             pyxel.blt((i+2)*16, j*16, 0, 0, 64, 16, 16)
@@ -493,27 +506,31 @@ class Jogo:
                 pyxel.cls(0)
                 
             case -999:
-                pyxel.rect(0,0,320,256, 1)
-                pyxel.text(140, 100, "Menu incial!", 7)
+                pyxel.cls(6)
+                pyxel.bltm(0,0,1,0,0,32,256)
+                pyxel.bltm(288,0,1,32,0,32,256)
+                pyxel.blt(32,0,2,0,0,256,256, 8)
                 pyxel.rect(62, 180, 71, 25, 8)
                 pyxel.rect(187, 180, 71, 25, 3)
                 pyxel.rect(62, 140, 71, 25, 12)
                 pyxel.rect(187, 140, 71, 25, 5)
+                pyxel.blt(65,40+int(math.cos(pyxel.frame_count/10)*6),1,0,192,32,32,8,0,2.3)
+                pyxel.blt(45,70+int(math.cos(pyxel.frame_count/10)*6),1,0,224,8,16,8,0,(math.cos(pyxel.frame_count/5)+2)*1.3)
                 pyxel.text(73, 190, "Sair do Jogo", 7)
                 pyxel.text(198, 190, "Modo de jogo", 7)
                 pyxel.text(73, 150, "Modo Facil", 7)
                 pyxel.text(198, 150, "Modo Dificil", 7)
                 if self.selection ==1:
-                    pyxel.rectb(61, 139, 73, 27, 7)
-                    pyxel.rectb(62, 140, 71, 25, 7)
+                    pyxel.rectb(61, 139, 73, 27, 1)
+                    pyxel.rectb(62, 140, 71, 25, 1)
                 elif self.selection ==10:
-                    pyxel.rectb(186, 139, 73, 27, 7)
-                    pyxel.rectb(187, 140, 71, 25, 7)
+                    pyxel.rectb(186, 139, 73, 27, 1)
+                    pyxel.rectb(187, 140, 71, 25, 1)
                 elif self.selection == 2:
-                    pyxel.rectb(61, 179, 73, 27, 7)
-                    pyxel.rectb(62, 180, 71, 25, 7)
+                    pyxel.rectb(61, 179, 73, 27, 1)
+                    pyxel.rectb(62, 180, 71, 25, 1)
                 elif self.selection == 20:
-                    pyxel.rectb(186, 179, 73, 27, 7)
-                    pyxel.rectb(187, 180, 71, 25, 7) 
+                    pyxel.rectb(186, 179, 73, 27, 1)
+                    pyxel.rectb(187, 180, 71, 25, 1) 
 
 Jogo()
