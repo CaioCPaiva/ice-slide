@@ -166,7 +166,7 @@ class Jogo:
                 self.selection = int(self.selection/2)
             if (self.selection ==1 or self.selection==10) and (pyxel.btnp(pyxel.KEY_S)==True or pyxel.btnp(pyxel.KEY_DOWN)==True):
                 self.selection = int(self.selection*2)
-            
+            #modo facil
             if self.selection == 1 and (pyxel.btnp(pyxel.KEY_SPACE)==True or pyxel.btnp(pyxel.KEY_RETURN)==True):
                 self.move=True
                 difficulty = 1
@@ -174,8 +174,10 @@ class Jogo:
                 definir_mundo(master)
                 self.x = initial_x
                 self.y = initial_y
+            #sair do jogo
             elif self.selection == 2 and (pyxel.btnp(pyxel.KEY_SPACE)==True or pyxel.btnp(pyxel.KEY_RETURN)==True):
                 pyxel.quit()
+            #modo dificil    
             elif self.selection == 10 and (pyxel.btnp(pyxel.KEY_SPACE)==True or pyxel.btnp(pyxel.KEY_RETURN)==True):
                 self.move=True
                 difficulty = 2
@@ -183,7 +185,23 @@ class Jogo:
                 definir_mundo(master)
                 self.x = initial_x
                 self.y = initial_y
+            #como jogar    
+            elif self.selection == 20 and (pyxel.btnp(pyxel.KEY_SPACE)==True or pyxel.btnp(pyxel.KEY_RETURN)==True):
+                master = -997
+                self.selection = -1
+                return                                  
+        if master == -997:
+        # Voltar para o menu principal
+            if pyxel.btnp(pyxel.KEY_SPACE) or pyxel.btnp(pyxel.KEY_RETURN):
+                master = -999
+                self.selection = 1               
+            # Ir para a página da DIREITA 
+            if (pyxel.btnp(pyxel.KEY_D) or pyxel.btnp(pyxel.KEY_RIGHT)) and self.selection == -1:
+                self.selection = -2
 
+            # Ir para a página da ESQUERDA
+            if (pyxel.btnp(pyxel.KEY_A) or pyxel.btnp(pyxel.KEY_LEFT)) and self.selection == -2:
+                self.selection = -1
         if pyxel.btnp(pyxel.KEY_R)==True and self.move==True and master > 0:
             master = master_memory
             definir_mundo(master) 
@@ -517,8 +535,8 @@ class Jogo:
                 pyxel.blt(65,40+int(math.cos(pyxel.frame_count/10)*6),1,0,192,32,32,8,0,2.3)
                 pyxel.blt(45,70+int(math.cos(pyxel.frame_count/10)*6),1,0,224,8,16,8,0,(math.cos(pyxel.frame_count/5)+2)*1.3)
                 pyxel.text(73, 190, "Sair do Jogo", 7)
-                pyxel.text(198, 190, "Modo de jogo", 7)
-                pyxel.text(73, 150, "Modo Facil", 7)
+                pyxel.text(202, 190, "Instrucoes", 7)
+                pyxel.text(78, 150, "Modo Facil", 7)
                 pyxel.text(198, 150, "Modo Dificil", 7)
                 if self.selection ==1:
                     pyxel.rectb(61, 139, 73, 27, 1)
@@ -532,5 +550,39 @@ class Jogo:
                 elif self.selection == 20:
                     pyxel.rectb(186, 179, 73, 27, 1)
                     pyxel.rectb(187, 180, 71, 25, 1) 
-
+            #tela instrucoes
+            case -997:
+                #tela de como jogar
+                if self.selection == -1: 
+                    pyxel.cls(1)
+                    pyxel.text(140, 20, "COMO JOGAR",7)
+                    pyxel.text(40, 50, "CONTROLES:", 7)
+                    pyxel.blt(152, 75, 0, 0, 16, 16, 16, 8)
+                    pyxel.text(150, 65, "W / ^", 7) 
+                    pyxel.text(150, 95, "S / v", 7)
+                    pyxel.text(124, 80, "A / <", 7) 
+                    pyxel.text(176, 80, "D / >", 7)
+                    pyxel.text(40, 140, "OBJETIVO:", 7)
+                    pyxel.text(40, 155, "- Modo Facil: Chegue ao peixe.", 7)
+                    pyxel.text(40, 165, "- Modo Dificil: Pise em todo o gelo e volte para o inicio", 7)
+                    pyxel.text(130, 230, "Pagina 1 de 2  >", 7)
+                    pyxel.text(86, 240, "Pressione ESPACO ou RETURN para voltar", 7)
+                #tela dos blocos
+                elif self.selection == -2:
+                    pyxel.cls(3)
+                    pyxel.text(146, 20, "BLOCOS",7)  
+                    pyxel.blt(50, 50, 0, 16, 0, 16, 16)
+                    pyxel.text(74, 54, "- Gelo Normal: Deslize sobre ele,vira agua.", 7)
+                    pyxel.blt(50, 80, 0, 0, 0, 16, 16)
+                    pyxel.text(74, 84, "- Gelo grosso: Vira gelo normal ao pisar.", 7)
+                    pyxel.blt(50, 110, 0, 0, 64, 16, 16)
+                    pyxel.text(74, 114, "- Parede: Bloqueia seu movimento.", 7)
+                    pyxel.blt(50, 140, 0, 32, 0, 16, 16)
+                    pyxel.text(74, 144, "- Agua:afogamento!, fim de jogo.", 7)
+                    pyxel.blt(50, 170, 0, 48, 32, 16, 16,8)
+                    pyxel.text(74, 174, "- peixe: Objetivo do modo facil.", 7)
+                    pyxel.blt(50, 200, 0, 16, 32, 16, 16)
+                    pyxel.text(74, 204, "- Inicio (Dificil): Volte aqui para vencer.", 7)
+                    pyxel.text(126, 230, "<  Pagina 2 de 2", 7)
+                    pyxel.text(86, 240, "Pressione ESPACO ou RETURN para voltar", 7)
 Jogo()
