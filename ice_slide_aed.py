@@ -8,7 +8,7 @@ world = []
 initial_x = 0
 initial_y = 0
 master = -999
-master_memory = 1
+master_memory = 8
 break_thick = True
 fps = 13
 wave_speed = 13
@@ -307,11 +307,13 @@ class Jogo:
                     self.selection = -2
                     self.dying = 1
                 self.y -= 1
-                if (world[self.y-1][self.x-2][0] == 5):
-                    break_thick = False
                 if self.y ==0:
                     self.selection = -2
                     self.dying = 4
+                else:
+                    if (world[self.y-1][self.x-2][0] == 5):
+                        break_thick = False
+                
 
         if self.move == False and self.direction == "south" and master > 0 and self.dying ==0:
             if (world[self.y+1][self.x-2][0] == 5):
@@ -321,11 +323,13 @@ class Jogo:
                     self.selection = -2
                     self.dying = 1
                 self.y += 1
-                if (world[self.y+1][self.x-2][0] == 5):
-                    break_thick = False
                 if self.y ==15:
                     self.selection = -2
                     self.dying = 4
+                else:
+                    if (world[self.y+1][self.x-2][0] == 5):
+                        break_thick = False
+                
 
         if self.move == False and self.direction == "west" and master > 0 and self.dying ==0:
             if (world[self.y][self.x-3][0] == 5):
@@ -335,11 +339,13 @@ class Jogo:
                     self.selection = -2
                     self.dying = 1
                 self.x -= 1
-                if (world[self.y][self.x-3][0] == 5):
-                    break_thick = False
                 if self.x ==2:
                     self.selection = -2
                     self.dying = 4
+                else:
+                    if (world[self.y][self.x-3][0] == 5):
+                        break_thick = False
+                
 
         if self.move == False and self.direction == "east" and master > 0 and self.dying ==0:
             if (world[self.y][self.x-1][0] == 5):
@@ -349,11 +355,13 @@ class Jogo:
                     self.selection = -2
                     self.dying = 1
                 self.x += 1
-                if (world[self.y][self.x-1][0] == 5):
-                    break_thick = False
                 if self.x ==17:
                     self.selection = -2
                     self.dying = 4
+                else:
+                    if (world[self.y][self.x-1][0] == 5):
+                        break_thick = False
+                
 
         trilha(self.x-2, self.y)
 
