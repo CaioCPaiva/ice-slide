@@ -365,15 +365,19 @@ class Jogo:
 
         trilha(self.x-2, self.y)
 
+        if master == -3:
+            time.sleep(0.7)
+            master = -2
+            self.selection = -3 
+            self.x = initial_x
+            self.y = initial_y
+
         if world[self.y][self.x-2][0] == 9:
             self.move = True
             self.direction = None
 
         if (world[self.y][self.x-2][0] == -10) and difficulty==1:
-            self.selection = -3 
-            self.x = initial_x
-            self.y = initial_y
-            master = -2
+            master = -3
         if master == -2 and last ==1:    
             master = -1000
         
@@ -515,6 +519,10 @@ class Jogo:
                     pyxel.rectb(212, 180, 71, 25, 7)
                 pyxel.blt(123, 82,1,0,0,64,64,5,0,1.3)
                 pyxel.blt(132,40,1,64,16,64,16,2,0,2+((math.cos(pyxel.frame_count/10))/6))
+            case -3:
+                pyxel.blt((self.x*16), (self.y*16),0,16,0,16,16)
+                pyxel.blt((self.x*16), (self.y*16),0,64,32,16,16,8)
+                pyxel.blt((self.x*16), (self.y*16)-11,0,80,32,16,16,8,-45)
             case -1000: 
                 pyxel.rect(0,0,320,256, 1)
                 pyxel.text(140, 100, "Ganhou tudo!", 7)
