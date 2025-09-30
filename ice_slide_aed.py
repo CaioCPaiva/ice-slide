@@ -8,7 +8,7 @@ world = []
 initial_x = 0
 initial_y = 0
 master = -999
-master_memory = 8
+master_memory = 1
 break_thick = True
 fps = 13
 wave_speed = 13
@@ -533,15 +533,16 @@ class Jogo:
                 
             case -999:
                 pyxel.cls(6)
-                pyxel.bltm(0,0,1,0,0,32,256)
-                pyxel.bltm(288,0,1,32,0,32,256)
+                pyxel.bltm(0,0,1,0,0,32,256,8)
+                pyxel.bltm(288,0,1,32,0,32,256,8)
                 pyxel.blt(32,0,2,0,0,256,256, 8)
                 pyxel.rect(62, 180, 71, 25, 8)
                 pyxel.rect(187, 180, 71, 25, 3)
                 pyxel.rect(62, 140, 71, 25, 12)
                 pyxel.rect(187, 140, 71, 25, 5)
                 pyxel.blt(65,40+int(math.cos(pyxel.frame_count/10)*6),1,0,192,32,32,8,0,2.3)
-                pyxel.blt(45,70+int(math.cos(pyxel.frame_count/10)*6),1,0,224,8,16,8,0,(math.cos(pyxel.frame_count/5)+2)*1.3)
+                pyxel.blt(45,70+int(math.cos(pyxel.frame_count/10)*6),1,0,224,8,16,8,0,(math.cos(pyxel.frame_count/5)+2)*0.7+1)
+                pyxel.blt(110,30+int(math.cos(pyxel.frame_count/10)*6),1,9,224,5,8,8,0,(math.sin(pyxel.frame_count/9)+2)*0.7+1)
                 pyxel.text(73, 190, "Sair do Jogo", 7)
                 pyxel.text(202, 190, "Instrucoes", 7)
                 pyxel.text(78, 150, "Modo Facil", 7)
