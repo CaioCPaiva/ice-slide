@@ -29,6 +29,14 @@ class Cloud:
         pyxel.blt(self.pos_x, self.pos_y, 1,208,((self.type-1)*32)+16,48,32,8,2)
         self.pos_x += 0.5
 
+for i in range(random.randint(3,5)):
+    cloud = Cloud(random.randint(1,5),random.randint(20, 232), random.randint(20, 80), random.randint(1,3))
+    for i in clouds:
+        if cloud.pos_x > i.pos_x - 50 and cloud.pos_x < i.pos_x + 50 and cloud.pos_y > i.pos_y - 20 and cloud.pos_y < i.pos_y + 20:
+            cloud.pos_x += 60
+
+    clouds.append(cloud)
+
 def definir_mundo(master):
     global world, initial_x, initial_y, last, difficulty
     world = []
@@ -280,6 +288,7 @@ class Jogo:
         if self.dying ==4:
             time.sleep(0.7)
             master = -1
+            self.dying = 5
         if self. dying ==3:
             master = -1
         if self.dying == 1 or self.dying ==2:
@@ -504,6 +513,9 @@ class Jogo:
                 if self.dying==3:
                     pyxel.blt(128, 82,1,0,64,64,52,5,0,1.3)
                     pyxel.text(122,160,"Voce morreu afogado!",7)
+                elif self.dying == 5:
+                    pyxel.blt(128,72,1,0,120,64,72,8,0,1.3)
+                    pyxel.text(122,160,"Voce bateu a cabeca!",7)
                 if self.selection == -1:
                     pyxel.rectb(61, 179, 73, 27, 7)
                     pyxel.rectb(62, 180, 71, 25, 7)
