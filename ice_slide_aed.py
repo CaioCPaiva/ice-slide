@@ -16,6 +16,18 @@ counter = 0
 wave = False
 last = 0
 difficulty = 1
+clouds = []
+cloud_marker = -100
+
+class Cloud:
+    def __init__(self, type, pos_x, pos_y, back):
+        self.type = type
+        self.pos_x = pos_x
+        self.pos_y = pos_y
+        self.back = back
+    def move(self):
+        pyxel.blt(self.pos_x, self.pos_y, 1,208,((self.type-1)*32)+16,48,32,8,2)
+        self.pos_x += 0.5
 
 def definir_mundo(master):
     global world, initial_x, initial_y, last, difficulty
@@ -132,7 +144,7 @@ class Jogo:
         pyxel.run(self.update, self.draw)
 
     def update(self):
-        global world, master_memory, master, initial_x, initial_y, last, difficulty, break_thick
+        global world, master_memory, master, initial_x, initial_y, last, difficulty, break_thick, clouds, cloud_marker
 
         if master == -998:
             time.sleep(0.3)
@@ -396,7 +408,7 @@ class Jogo:
                 master = -2
 
     def draw(self):
-        global world, master_memory, master, counter, wave
+        global world, master_memory, master, counter, wave, cloud_marker, clouds
         counter += 1
         if counter % wave_speed == 0:
             wave = not wave
@@ -541,6 +553,18 @@ class Jogo:
                 
             case -999:
                 pyxel.cls(6)
+
+                #gera nuvens aleatóriamente e decide se vão passar pela frente ou atrás da montanha
+                if pyxel.frame_count - cloud_marker > 55 and pyxel.frame_count%2==0: 
+                    x = random.randint(1,50)
+                    if x == 1:
+                        clouds.append(Cloud(random.randint(1,5), -48, random.randint(20, 80), random.randint(1,3)))
+                        cloud_marker = pyxel.frame_count
+                for i in clouds:
+                    if i.back!=1:    
+                        i.move()
+                    if i.pos_x > 320:
+                        clouds.remove(i)
                 pyxel.bltm(0,0,1,0,0,32,256,8)
                 pyxel.bltm(288,0,1,32,0,32,256,8)
                 pyxel.blt(32,0,2,0,0,256,256, 8)
@@ -548,6 +572,10 @@ class Jogo:
                 pyxel.rect(187, 180, 71, 25, 3)
                 pyxel.rect(62, 140, 71, 25, 12)
                 pyxel.rect(187, 140, 71, 25, 5)
+                #printa as nuvens que passam pela frente da montanha
+                for i in clouds:
+                    if i.back==1:    
+                        i.move()
                 pyxel.blt(65,40+int(math.cos(pyxel.frame_count/10)*6),1,0,192,32,32,8,0,2.3)
                 pyxel.blt(45,70+int(math.cos(pyxel.frame_count/10)*6),1,0,224,8,16,8,0,(math.cos(pyxel.frame_count/5)+2)*0.7+1)
                 pyxel.blt(110,30+int(math.cos(pyxel.frame_count/10)*6),1,9,224,5,8,8,0,(math.sin(pyxel.frame_count/9)+2)*0.7+1)
