@@ -264,7 +264,12 @@ class maker:
                                     if world_array[y][x] != 1:
                                         temp_list.append([x, y, world_array[y][x]])
                         remade_world.append(temp_list)
-                        remade_world.append(0)
+                        with open("map_lists.txt", "r") as f:
+                            linhas = f.readlines()
+                            if self.level == len(linhas):
+                                remade_world.append(1)
+                            else:
+                                remade_world.append(0)
                         linhas[(self.level-1)] = str(remade_world)
                         linhas = [linha.rstrip("\n") for linha in linhas]
                         with open("map_lists.txt", "w") as f:
@@ -281,7 +286,12 @@ class maker:
                                     if world_array[y][x] != 1:
                                         temp_list.append([x, y, world_array[y][x]])
                         remade_world.append(temp_list)
-                        remade_world.append(0)
+                        with open("hard_map_lists.txt", "r") as f:
+                            linhas = f.readlines()
+                            if self.level == len(linhas):
+                                remade_world.append(1)
+                            else:
+                                remade_world.append(0)
                         linhas[(self.level-1)] = str(remade_world)
                         linhas = [linha.rstrip("\n") for linha in linhas]
                         with open("hard_map_lists.txt", "w") as f:
