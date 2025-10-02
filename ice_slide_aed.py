@@ -570,13 +570,15 @@ class Jogo:
         match master:
             case 0:
                 pass
-            case -1:
+            case -1: #tela de derrota
                 for i in range(20):
                     pyxel.bltm(i*16,0,0,160,0,16,256)
-                pyxel.rect(62, 180, 71, 25, 8)
-                pyxel.rect(187, 180, 71, 25, 3)
-                pyxel.text(73, 190, "Menu Inicial", 7)
-                pyxel.text(191, 190, "Tentar Novamente", 7)
+                pyxel.rect(50, 200, 86, 25, 8)
+                pyxel.blt(56, 205,1,192,32,16,16,3)
+                pyxel.rect(186, 200, 86, 25, 3)
+                pyxel.blt(189, 205,1,216,0,16,16,3)
+                pyxel.text(76, 210, "Menu Inicial", 7)
+                pyxel.text(207, 210, "Tentar Novamente", 7)
                 if self.dying==3:
                     pyxel.blt(128, 82,1,0,64,64,52,5,0,1.3)
                     pyxel.text(122,160,"Voce morreu afogado!",7)
@@ -584,53 +586,59 @@ class Jogo:
                     pyxel.blt(128,72,1,0,120,64,72,8,0,1.3)
                     pyxel.text(122,160,"Voce bateu a cabeca!",7)
                 if self.selection == -1:
-                    pyxel.rectb(61, 179, 73, 27, 7)
-                    pyxel.rectb(62, 180, 71, 25, 7)
+                    pyxel.rectb(49, 199, 88, 27, 7)
+                    pyxel.rectb(50, 200, 86, 25, 1)
                 elif self.selection == -2:
-                    pyxel.rectb(186, 179, 73, 27, 7)
-                    pyxel.rectb(187, 180, 71, 25, 7)
+                    pyxel.rectb(185, 199, 88, 27, 7)
+                    pyxel.rectb(186, 200, 86, 25, 1)
                 pyxel.blt(132,40+int(math.cos(pyxel.frame_count/10)*7),1,64,0,56,16,3,0,2)
-            case -2:
+            case -2: #tela de vitória
                 for i in range(20):
                     pyxel.bltm(i*16,0,0,176,0,16,256)
-                pyxel.rect(38, 180, 71, 25, 8)
-                pyxel.rect(125, 180, 71, 25, 9)
-                pyxel.rect(212, 180, 71, 25, 3)
-                pyxel.text(48, 190, "Voltar ao Menu", 7)
-                pyxel.text(135, 190, "Repetir Nivel", 7)
-                pyxel.text(222, 190, "Proximo Nivel", 7)
+                pyxel.rect(16, 200, 86, 25, 8)
+                pyxel.blt(22, 205,1,192,32,16,16,3)
+                pyxel.rect(117, 200, 86, 25, 9)
+                pyxel.blt(123, 205,1,216,0,16,16,3)
+                pyxel.rect(218, 200, 86, 25, 3)
+                pyxel.blt(224, 205,1,192,16,16,16,3)
+                pyxel.text(42, 210, "Voltar ao Menu", 7)
+                pyxel.text(143, 210, "Repetir Nivel", 7)
+                pyxel.text(244, 210, "Proximo Nivel", 7)
                 if self.selection == -1:
-                    pyxel.rectb(37, 179, 73, 27, 7)
-                    pyxel.rectb(38, 180, 71, 25, 7)
+                    pyxel.rectb(15,199, 88, 27, 7)
+                    pyxel.rectb(16, 200, 86, 25, 12)
                 elif self.selection == -2:
-                    pyxel.rectb(124, 179, 73, 27, 7)
-                    pyxel.rectb(125, 180, 71, 25, 7) 
+                    pyxel.rectb(116, 199, 88, 27, 7)
+                    pyxel.rectb(117, 200, 86, 25, 12) 
                 elif self.selection == -3:
-                    pyxel.rectb(211, 179, 73, 27, 7)
-                    pyxel.rectb(212, 180, 71, 25, 7)
+                    pyxel.rectb(217, 199, 88, 27, 7)
+                    pyxel.rectb(218, 200, 86, 25, 12)
                 pyxel.blt(123, 82,1,0,0,64,64,5,0,1.3)
                 pyxel.blt(132,40,1,64,16,64,16,2,0,2+((math.cos(pyxel.frame_count/10))/6))
-            case -3:
+            case -3: #teela de transição de nivel
                 pyxel.blt((self.x*16), (self.y*16),0,16,0,16,16)
                 pyxel.blt((self.x*16), (self.y*16),0,64,32,16,16,8)
                 pyxel.blt((self.x*16), (self.y*16)-11,0,80,32,16,16,8,-45)
-            case -1000: 
+            case -1000: #tela de vitória final
                 pyxel.rect(0,0,320,256, 1)
-                pyxel.text(140, 100, "Ganhou tudo!", 7)
-                pyxel.rect(62, 180, 71, 25, 8)
-                pyxel.rect(187, 180, 71, 25, 3)
-                pyxel.text(73, 190, "Sair do Jogo", 7)
-                pyxel.text(198, 190, "Voltar ao Menu", 7)
+                pyxel.text(145, 150, "Parabens!", 7)
+                pyxel.text(125, 160, "Você terminou o modo!", 7)
+                pyxel.rect(50, 200, 86, 25, 8)
+                pyxel.blt(56, 205,1,232,0,16,16,3)
+                pyxel.rect(186, 200, 86, 25, 3)
+                pyxel.blt(189, 205,1,192,32,16,16,3)
+                pyxel.text(76, 210, "Sair do jogo", 7)
+                pyxel.text(207, 210, "Voltar ao menu", 7)
                 if self.selection == -1:
-                    pyxel.rectb(61, 179, 73, 27, 7)
-                    pyxel.rectb(62, 180, 71, 25, 7)
+                    pyxel.rectb(49, 199, 88, 27, 7)
+                    pyxel.rectb(50, 200, 86, 25, 1)
                 elif self.selection == -2:
-                    pyxel.rectb(186, 179, 73, 27, 7)
-                    pyxel.rectb(187, 180, 71, 25, 7) 
-            case -998:
+                    pyxel.rectb(185, 199, 88, 27, 7)
+                    pyxel.rectb(186, 200, 86, 25, 1) 
+            case -998: #transição para o menu inicial
                 pyxel.cls(0)
                 
-            case -999:
+            case -999: #menu inicial
                 pyxel.cls(6)
 
                 #gera nuvens aleatóriamente e decide se vão passar pela frente ou atrás da montanha
@@ -647,10 +655,14 @@ class Jogo:
                 pyxel.bltm(0,0,1,0,0,32,256,8)
                 pyxel.bltm(288,0,1,32,0,32,256,8)
                 pyxel.blt(32,0,2,0,0,256,256, 8)
-                pyxel.rect(62, 180, 71, 25, 8)
-                pyxel.rect(187, 180, 71, 25, 3)
-                pyxel.rect(62, 140, 71, 25, 12)
-                pyxel.rect(187, 140, 71, 25, 5)
+                pyxel.rect(50, 200, 86, 25, 8)
+                pyxel.blt(56, 205,1,232,0,16,16,3)
+                pyxel.rect(186, 200, 86, 25, 3)
+                pyxel.blt(192, 205,1,128,16,16,16,3)
+                pyxel.rect(50, 160, 86, 25, 12)
+                pyxel.blt(56, 165,1,176,16,16,16,3)
+                pyxel.rect(186, 160, 86, 25, 5)
+                pyxel.blt(192, 165,1,160,16,16,16,3)
                 #printa as nuvens que passam pela frente da montanha
                 for i in clouds:
                     if i.back==1:    
@@ -658,24 +670,24 @@ class Jogo:
                 pyxel.blt(65,40+int(math.cos(pyxel.frame_count/10)*6),1,0,192,32,32,8,0,2.3)
                 pyxel.blt(45,70+int(math.cos(pyxel.frame_count/10)*6),1,0,224,8,16,8,0,(math.cos(pyxel.frame_count/5)+2)*0.7+1)
                 pyxel.blt(110,30+int(math.cos(pyxel.frame_count/10)*6),1,9,224,5,8,8,0,(math.sin(pyxel.frame_count/9)+2)*0.7+1)
-                pyxel.text(73, 190, "Sair do Jogo", 7)
-                pyxel.text(202, 190, "Instrucoes", 7)
-                pyxel.text(78, 150, "Modo Facil", 7)
-                pyxel.text(198, 150, "Modo Dificil", 7)
+                pyxel.text(78, 210, "Sair do Jogo", 7)
+                pyxel.text(212, 210, "Instrucoes", 7)
+                pyxel.text(78, 170, "Modo Facil", 7)
+                pyxel.text(212, 170, "Modo Dificil", 7)
                 if self.selection ==1:
-                    pyxel.rectb(61, 139, 73, 27, 1)
-                    pyxel.rectb(62, 140, 71, 25, 1)
+                    pyxel.rectb(49, 159, 88, 27, 1)
+                    pyxel.rectb(50, 160, 86, 25, 7)
                 elif self.selection ==10:
-                    pyxel.rectb(186, 139, 73, 27, 1)
-                    pyxel.rectb(187, 140, 71, 25, 1)
+                    pyxel.rectb(185, 159, 88, 27, 1)
+                    pyxel.rectb(186, 160, 86, 25, 7)
                 elif self.selection == 2:
-                    pyxel.rectb(61, 179, 73, 27, 1)
-                    pyxel.rectb(62, 180, 71, 25, 1)
+                    pyxel.rectb(49, 199, 88, 27, 1)
+                    pyxel.rectb(50, 200, 86, 25, 7)
                 elif self.selection == 20:
-                    pyxel.rectb(186, 179, 73, 27, 1)
-                    pyxel.rectb(187, 180, 71, 25, 1) 
-            #tela instrucoes
-            case -997:
+                    pyxel.rectb(185, 199, 88, 27, 1)
+                    pyxel.rectb(186, 200, 86, 25, 7) 
+    
+            case -997: #tela instrucoes
                 #tela de como jogar
                 if self.selection == -1: 
                     pyxel.cls(1)
