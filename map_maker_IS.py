@@ -75,7 +75,7 @@ class maker:
                     temp_array.append(valor)
                 world_array.append(temp_array)
 
-            self.initial_x = (content[0][0]-2)
+            self.initial_x = (content[0][0])
             self.initial_y = content[0][1]
         elif self.difficulty == 2:
             with open("hard_map_lists.txt", "r") as f:
@@ -137,7 +137,7 @@ class maker:
                     world_array[(self.mouse_y-20)//16][(self.mouse_x-20)//16] = 9
 
         if self.selection == 6 and (self.mouse_x>=20 and self.mouse_x<=275) and (self.mouse_y>=20 and self.mouse_y<=275) and pyxel.btnp(pyxel.MOUSE_BUTTON_LEFT)==True:
-            self.initial_x = (self.mouse_x-20)//16
+            self.initial_x = (self.mouse_x-20)//16+2
             self.initial_y = (self.mouse_y-20)//16
             self.selection = 0
         
@@ -324,11 +324,11 @@ class maker:
         elif self.difficulty == 2:
             pyxel.rect(462,62,16,16,8)
             pyxel.text(468,67, "D", 7)
-            pyxel.blt(((self.initial_x)*16)+20,(self.initial_y*16)+20,0,16,32,16,16)
+            pyxel.blt(((self.initial_x-2)*16)+20,(self.initial_y*16)+20,0,16,32,16,16)
         for i in range(17):
             pyxel.rect(20+(i*16),20,1,256,1)
             pyxel.rect(20,20+(i*16),256,1,1)
-        pyxel.rect(((self.initial_x)*16)+23, (self.initial_y*16)+23,11,11,3)
+        pyxel.rect(((self.initial_x-2)*16)+23, (self.initial_y*16)+23,11,11,3)
 
         pyxel.rectb(300,60,20,20,1) #gelo
         pyxel.blt(302,62,0,16,0,16,16)
