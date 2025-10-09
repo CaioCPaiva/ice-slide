@@ -191,7 +191,7 @@ class maker:
                         else:
 
                             temp_list=[]
-                            world_list.append([self.initial_x,self.initial_y])
+                            world_list.append([self.initial_x-2,self.initial_y])
 
                             for y in range(16):
                                 for x in range(16):
@@ -223,7 +223,7 @@ class maker:
                             self.initial_y = -10
                     elif self.difficulty==2:
                         temp_list=[]
-                        world_list.append([self.initial_x,self.initial_y])
+                        world_list.append([self.initial_x-2,self.initial_y])
 
                         for y in range(16):
                             for x in range(16):
@@ -324,11 +324,17 @@ class maker:
         elif self.difficulty == 2:
             pyxel.rect(462,62,16,16,8)
             pyxel.text(468,67, "D", 7)
-            pyxel.blt(((self.initial_x-2)*16)+20,(self.initial_y*16)+20,0,16,32,16,16)
+            if self.level >0:
+                pyxel.blt(((self.initial_x)*16)+20,(self.initial_y*16)+20,0,16,32,16,16)
+            elif self.level==-1:
+                pyxel.blt(((self.initial_x-2)*16)+20,(self.initial_y*16)+20,0,16,32,16,16)
         for i in range(17):
             pyxel.rect(20+(i*16),20,1,256,1)
             pyxel.rect(20,20+(i*16),256,1,1)
-        pyxel.rect(((self.initial_x-2)*16)+23, (self.initial_y*16)+23,11,11,3)
+        if self.level > 0:
+            pyxel.rect(((self.initial_x)*16)+23, (self.initial_y*16)+23,11,11,3)
+        elif self.level==-1:
+            pyxel.rect(((self.initial_x-2)*16)+23, (self.initial_y*16)+23,11,11,3)
 
         pyxel.rectb(300,60,20,20,1) #gelo
         pyxel.blt(302,62,0,16,0,16,16)
