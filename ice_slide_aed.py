@@ -464,9 +464,6 @@ class Jogo:
         if (world[self.y][self.x-2][0] == -10) and difficulty==1:
             master = -3
             pyxel.stop(1)
-        if master == -2 and last ==1:    
-            master = -1000
-            pyxel.stop(1)
         
         if self.x==initial_x and self.y==initial_y and difficulty==2:
             self.direction = None
@@ -482,6 +479,10 @@ class Jogo:
                 self.y = 0
                 master = -2
                 pyxel.stop(1)
+                
+        if master == -2 and last ==1:    
+            master = -1000
+            pyxel.stop(1)
 
     def draw(self):
         global world, master_memory, master, counter, wave, cloud_marker, clouds
